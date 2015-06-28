@@ -7,7 +7,8 @@ The final version should be integrated with the bare metal stack for rust http:/
 # Compiling:
 make all
 
-The output will be a binary called blinky.elf. <br />
+The output will be a binary called blinky.elf.
+
 ARM Core0 runs Ubuntu Linux and ARM Core1 will load blinky.elf using the remoteproc kernel module. For more information see henrys blog.
 
 # Structure:
