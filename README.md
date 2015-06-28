@@ -10,7 +10,7 @@ make all
 Upload the resulting binary (one of binky.elf) on the target.
 
 # Structure:
-  * main.rs - sample program (blinks a led on the ARM Cortex A9)
+  * main.rs - sample program (blinks a LED on the ARM Cortex A9)
   * sys/ - bootstrap code (boot loader and system initialization)
   * zero/ - zero and addition al C stubs
   * orig/ - includes the original C code implementing a blinking LED
