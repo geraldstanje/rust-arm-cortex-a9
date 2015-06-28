@@ -1,6 +1,7 @@
 ## Rust on ARM Cortex A9:
 
-This project implements a blinking LED on ARM Cortex A9. The goal is to create a template project for using the Rust language on bare metal ARM Cortex A9.
+In the first step the project will implement a blinking LED on ARM Cortex A9. 
+The next step is to create a template project for using the Rust language on bare metal ARM Cortex A9. 
 The final version should be integrated with the bare metal stack for rust http://zinc.rs
 
 # Compiling:
