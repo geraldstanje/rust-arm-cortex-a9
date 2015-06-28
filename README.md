@@ -14,7 +14,7 @@ Upload the resulting binary (one of binky.elf) on the target.
   * sys/ - bootstrap code (boot loader and system initialization)
   * zero/ - zero and addition al C stubs
   * orig/ - includes the original C code implementing a blinking LED
-  * libcore - libcore built for the target description
+  * libcore/ - libcore built for the target description
 
 # References:
   * https://github.com/neykov/armboot

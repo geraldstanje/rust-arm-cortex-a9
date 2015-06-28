@@ -57,7 +57,7 @@ struct rproc_resource
 } 
 
 const ti_ipc_remoteproc_ResourceTable: rproc_resource = rproc_resource {
-  base: resource_table { ver: 1, num: 1, reserved: [0, 0], offset: [0], // TODO: not sure if that represents the C code: { offsetof(struct rproc_resource, code_cout) }
+  base: resource_table { ver: 1, num: 1, reserved: [0, 0], offset: [20], // TODO: check if it represents the C code with offsetof
   },
   code_cout: fw_rsc_carveout { type_: fw_resource_type::RSC_CARVEOUT as u32, da: RAM_ADDR, pa: RAM_ADDR, len: 524288, //1<<19 
                flags: 0, reserved: 0, name: b"blinky\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 
