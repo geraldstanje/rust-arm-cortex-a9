@@ -7,7 +7,8 @@ The final version should be integrated with the bare metal stack for rust http:/
 # Compiling:
 make all
 
-Upload the resulting binary (one of binky.elf) on the target.
+The output will be a binary called blinky.elf. <br />
+ARM Core0 runs Ubuntu Linux and ARM Core1 will load blinky.elf using the remoteproc kernel module. For more information see henrys blog.
 
 # Structure:
   * main.rs - sample program (blinks a LED on the ARM Cortex A9)
@@ -20,3 +21,4 @@ Upload the resulting binary (one of binky.elf) on the target.
   * https://github.com/neykov/armboot
   * https://github.com/antoinealb/rust-demo-cortex-m4
   * https://github.com/hackndev/zinc
+  * http://henryomd.blogspot.co.at/2015/02/zynq-amp-linux-on-cpu0-and-bare-metal.html
