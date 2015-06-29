@@ -3,7 +3,7 @@
 1. Implement a blinking LED app on ARM Cortex A9 using C ... completed 
 2. Implement a blinking LED app on ARM Cortex A9 using Rust ... in progress
 3. Create a template project for using the Rust language on bare metal ARM Cortex A9 ... not started
-4. Integrate with the bare metal stack for rust - zinc [3] ... not started
+4. Integrate with Zinc [3], the bare metal stack for rust ... not started
 
 # Compiling:
 make all
