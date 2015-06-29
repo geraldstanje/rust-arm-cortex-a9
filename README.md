@@ -16,7 +16,7 @@ ARM Core0 runs Ubuntu Linux and ARM Core1 will load blinky.elf using the remotep
   * main.rs - sample program (blinks a LED on the ARM Cortex A9)
   * sys/ - bootstrap code (boot loader and system initialization)
   * zero/ - zero and addition al C stubs
-  * orig/ - includes the original C code implementing a blinking LED
+  * orig/ - includes the original C code implementing a blinking LED app
   * libcore/ - libcore built for the target description
 
 # References:
