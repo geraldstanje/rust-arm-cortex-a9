@@ -10,7 +10,7 @@ make all
 
 The output will be a binary called blinky.elf.
 
-ARM Core0 runs Ubuntu Linux and ARM Core1 will load blinky.elf using the remoteproc kernel module. For more information see henrys blog.
+ARM Core0 runs Ubuntu Linux and ARM Core1 will load blinky.elf using the remoteproc kernel module. For more information see henrys blog[4].
 
 # Structure:
   * main.rs - sample program (blinks a LED on the ARM Cortex A9)
@@ -20,7 +20,7 @@ ARM Core0 runs Ubuntu Linux and ARM Core1 will load blinky.elf using the remotep
   * libcore/ - libcore built for the target description
 
 # References:
-  * https://github.com/neykov/armboot
-  * https://github.com/antoinealb/rust-demo-cortex-m4
-  * https://github.com/hackndev/zinc
-  * http://henryomd.blogspot.co.at/2015/02/zynq-amp-linux-on-cpu0-and-bare-metal.html
+  * [1]: https://github.com/neykov/armboot
+  * [2]: https://github.com/antoinealb/rust-demo-cortex-m4
+  * [3]: https://github.com/hackndev/zinc
+  * [4]: http://henryomd.blogspot.co.at/2015/02/zynq-amp-linux-on-cpu0-and-bare-metal.html
