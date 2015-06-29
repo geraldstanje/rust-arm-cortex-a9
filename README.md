@@ -1,8 +1,9 @@
 ## Rust on ARM Cortex A9:
 
-1. In the first step the project will implement a blinking LED on ARM Cortex A9 ... in progress <br />
-2. The next step is to create a template project for using the Rust language on bare metal ARM Cortex A9 ... not started <br />
-3. The final version should be integrated with the bare metal stack for rust http://zinc.rs ... not started
+1. Implement a blinking LED on ARM Cortex A9 in C ... completed 
+2. Implement a blinking LED on ARM Cortex A9 in Rust ... in progress <br />
+2. Create a template project for using the Rust language on bare metal ARM Cortex A9 ... not started <br />
+3. Integrated with the bare metal stack for rust http://zinc.rs ... not started
 
 # Compiling:
 make all
