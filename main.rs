@@ -73,6 +73,10 @@ pub fn set_led() {
 
 #[no_mangle]
 pub extern "C" fn main() {
+  unsafe {
+    volatile_load(&ti_ipc_remoteproc_ResourceTable);
+  }
+  
 	loop {
 		set_led();
 	}
