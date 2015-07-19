@@ -1,5 +1,5 @@
 # Binaries will be generated with this name (.elf)
-PROJ_NAME=blinky
+PROJ_NAME=app_cpu1
 
 RUSTC=rustc
 
@@ -47,7 +47,7 @@ LIBRARIES = -lcompiler-rt -lgcc -lc
 
 RUSTFLAGS = -A non_camel_case_types -A dead_code -A non_snake_case
 RUSTFLAGS+= --target target.json -C link-args="$(LDFLAGS)"
-RUSTFLAGS+= -L. #-L libcore
+RUSTFLAGS+= -L. -L libcore
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@

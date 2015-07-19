@@ -4,9 +4,14 @@
 #![feature(lang_items)]
 #![feature(int_uint)] // update fail_bounds_check
 #![feature(no_std)]
-#![crate_name="blinky"]
+#![feature(intrinsics)]
+#![crate_name="app_cpu1"]
+#[macro_use] extern crate core;
 
 use zero::std_types::*;
+
+extern "rust-intrinsic" { pub fn volatile_load<T>(src: *const T) -> T; }
+extern "rust-intrinsic" { pub fn volatile_store<T>(src: *mut T, value: T); }
 
 mod zero {
 	pub mod std_types;
@@ -44,7 +49,7 @@ struct fw_rsc_carveout
   len: u32,
   flags: u32,
   reserved: u32,
-  name: &'static[u8; 32], // TODO: not sure if the type is right
+  name: [u8; 32],
 }
 
 pub struct rproc_resource
@@ -55,20 +60,29 @@ pub struct rproc_resource
 
 #[link_section=".rtable"]
 pub static mut ti_ipc_remoteproc_ResourceTable: rproc_resource = rproc_resource {
-  base: resource_table { ver: 1, num: 1, reserved: [0, 0], offset: [20], // TODO: not sure if that represents the C code: { offsetof(struct rproc_resource, code_cout) }
+  base: resource_table { ver: 1, num: 1, reserved: [0, 0], offset: [20],
   },
   code_cout: fw_rsc_carveout { type_: fw_resource_type::RSC_CARVEOUT as u32, da: RAM_ADDR, pa: RAM_ADDR, len: 524288, //1<<19 
-               flags: 0, reserved: 0, name: b"APP_CPU1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 
+               flags: 0, reserved: 0, name: *b"APP_CPU1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 
   },
 };
 
 #[no_mangle]
 pub fn set_led() {
-	let led_port: *mut u32 = 0x40000030 as *mut u32;
+  let led_port: *mut u32 = 0x40000030 as *mut u32;
 
-	unsafe {
-		*led_port = 20; // LED2 and LED4 set
-	}
+  unsafe {
+    *led_port = 20; // set LED2 and LED4
+  }
+}
+
+#[no_mangle]
+pub fn clear_led() {
+  let led_port: *mut u32 = 0x40000030 as *mut u32;
+
+  unsafe {
+    *led_port = 0; // clear LED2 and LED4
+  }
 }
 
 #[no_mangle]
@@ -78,6 +92,11 @@ pub extern "C" fn main() {
   }
   
 	loop {
-		set_led();
+    let mut i: u32 = 0;
+
+    while i < 10000000 { i += 1; }
+    set_led();
+    while i < 10000000 { i += 1; }
+    clear_led();
 	}
 }
