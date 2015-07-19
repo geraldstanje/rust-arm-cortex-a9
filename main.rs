@@ -5,8 +5,7 @@
 #![feature(int_uint)] // update fail_bounds_check
 #![feature(no_std)]
 #![feature(intrinsics)]
-#![crate_name="app_cpu1"]
-#[macro_use] extern crate core;
+#![feature(core)]
 
 use zero::std_types::*;
 
