@@ -13,14 +13,14 @@ SHELL = /bin/bash
 
 # Put your source files here (or *.c, etc)
 # add startup file to build
-SRCS := $(shell echo sys/*.{c,S})
+#SRCS := $(shell echo sys/*.{c,S})
 
-SRCS := $(shell echo sys/scugic_v3_0/src/*.c)
-SRCS += $(shell echo sys/scutimer_v2_1/src/*.c)
-SRCS += $(shell echo sys/profile/*.c)
-SRCS += $(shell echo sys/profile/*.S)
-SRCS += $(shell echo sys/*.c)
-SRCS += $(shell echo sys/*.S)
+#SRCS := $(shell echo sys/scugic_v3_0/src/*.c)
+#SRCS += $(shell echo sys/scutimer_v2_1/src/*.c)
+#SRCS += $(shell echo sys/profile/*.c)
+#SRCS += $(shell echo sys/profile/*.S)
+#SRCS += $(shell echo sys/*.c)
+#SRCS += $(shell echo sys/*.S)
 
 #SRCS = sys/xil_exception.c
 #SRCS += sys/vectors.c
@@ -31,8 +31,8 @@ SRCS += $(shell echo sys/*.S)
 #SRCS += sys/xil-crt0.S
 #OBJS = $(SRCS:.c=.o)
 
-OBJS := $(SRCS:.c=.o)
-OBJS += $(SRCS:.S=.o)
+#OBJS := $(SRCS:.c=.o)
+#OBJS += $(SRCS:.S=.o)
 
 #OBJS := $(patsubst %.c,%.o,${SRCS})
 #OBJS := $(patsubst %.S,%.o,${SRCS})
@@ -69,4 +69,4 @@ $(PROJ_NAME).elf: libcompiler-rt.a main.rs
 	$(RUSTC) $(RUSTFLAGS) $(LIBRARIES) main.rs -o $@ -Z print-link-args
 
 clean:
-	rm -f libcompiler-rt.a *.o sys/*.o sys/scugic_v3_0/src/*.o sys/scutimer_v2_1/src/*.o sys/profile/*.o $(PROJ_NAME).elf
+	rm -f libcompiler-rt.a $(PROJ_NAME).elf
