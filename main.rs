@@ -7,20 +7,29 @@
 #![feature(intrinsics)]
 #![feature(core)]
 
-use zero::std_types::*;
+#![crate_type="staticlib"]
+
+extern crate core;
 
 extern "rust-intrinsic" { pub fn volatile_load<T>(src: *const T) -> T; }
 extern "rust-intrinsic" { pub fn volatile_store<T>(src: *mut T, value: T); }
 
-mod zero {
-  pub mod std_types;
-  pub mod zero;
+#[lang="stack_exhausted"]
+extern fn stack_exhausted() {}
+
+#[lang="eh_personality"]
+extern fn eh_personality() {}
+
+#[lang="panic_fmt"]
+fn panic_fmt() -> ! {
+    loop {}
 }
 
 const RAM_ADDR: u32 = 0x1e000000;
 
 #[repr(packed)]
-struct resource_table {
+struct resource_table
+{
   ver: u32,
   num: u32,
   reserved: [u32; 2],
@@ -28,7 +37,8 @@ struct resource_table {
 }
 
 #[repr(u8)]
-enum fw_resource_type {
+enum fw_resource_type
+{
   RSC_CARVEOUT = 0,
   RSC_DEVMEM = 1,
   RSC_TRACE = 2,
@@ -38,27 +48,29 @@ enum fw_resource_type {
 }
 
 #[repr(packed)]
-struct fw_rsc_carveout {
+struct fw_rsc_carveout
+{
   type_: u32,
   da: u32,
   pa: u32,
   len: u32,
   flags: u32,
   reserved: u32,
-  name: [u8; 32],
+  name: [u8; 32], // TODO: not sure if the type is right
 }
 
-pub struct rproc_resource {
+pub struct rproc_resource
+{
   base: resource_table,
   code_cout: fw_rsc_carveout,
 }
 
 #[link_section=".rtable"]
 pub static mut ti_ipc_remoteproc_ResourceTable: rproc_resource = rproc_resource {
-  base: resource_table { ver: 1, num: 1, reserved: [0, 0], offset: [20],
+  base: resource_table { ver: 1, num: 1, reserved: [0, 0], offset: [20], // TODO: not sure if that represents the C code: { offsetof(struct rproc_resource, code_cout) }
   },
   code_cout: fw_rsc_carveout { type_: fw_resource_type::RSC_CARVEOUT as u32, da: RAM_ADDR, pa: RAM_ADDR, len: 524288, //1<<19 
-  flags: 0, reserved: 0, name: *b"APP_CPU1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 
+               flags: 0, reserved: 0, name: *b"APP_CPU1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 
   },
 };
 
@@ -85,13 +97,13 @@ pub extern "C" fn main() {
   unsafe {
     volatile_load(&ti_ipc_remoteproc_ResourceTable);
   }
-  
-  loop {
-    let mut i: u32 = 0;
 
-    while i < 10000000 { i += 1; }
-    set_led();
-    while i < 10000000 { i += 1; }
-    clear_led();
+  loop {
+    //let mut i: u32 = 0;
+
+    //while i < 10000000u32 { i += 1; }
+    //set_led();
+    //while i < 10000000u32 { i += 1; }
+    clear_led();    
   }
 }
