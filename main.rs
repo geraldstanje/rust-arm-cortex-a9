@@ -1,7 +1,6 @@
 #![allow(improper_ctypes)]
 #![no_std]
 #![feature(lang_items)]
-#![feature(int_uint)] // update fail_bounds_check
 #![feature(no_std)]
 #![feature(intrinsics)]
 #![feature(core)]
