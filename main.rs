@@ -64,46 +64,46 @@ pub static mut ti_ipc_remoteproc_ResourceTable: rproc_resource = rproc_resource 
 
 #[no_mangle]
 pub fn set_led() {
-	let led_port: *mut u32 = 0x40000030 as *mut u32;
+  let led_port: *mut u32 = 0x40000030 as *mut u32;
 
-	unsafe {
-		*led_port = 20; // set LED2 and LED4
-	}
+  unsafe {
+    *led_port = 20; // set LED2 and LED4
+  }
 }
 
 #[no_mangle]
 pub fn clear_led() {
-	let led_port: *mut u32 = 0x40000030 as *mut u32;
+  let led_port: *mut u32 = 0x40000030 as *mut u32;
 
-	unsafe {
-		*led_port = 0; // clear LED2 and LED4
-	}
+  unsafe {
+    *led_port = 0; // clear LED2 and LED4
+  }
 }
 
 #[start]
 fn start(_: isize, _: *const *const u8) -> isize {
-	main();
-	return 0;
+  main();
+  return 0;
 }
 
 pub fn main() {
-	unsafe {
-		volatile_load(&ti_ipc_remoteproc_ResourceTable);
-	}
+  unsafe {
+    volatile_load(&ti_ipc_remoteproc_ResourceTable);
+  }
 
-	loop {
-		let mut i: u32 = 0;
+  loop {
+    let mut i: u32 = 0;
 
-		while i < 10000000u32 { 
-      i += 1; 
-      set_led(); 
-    }
-		
-		i = 0;
+    while i < 10000000u32 { 
+            i += 1; 
+            set_led(); 
+        }
+    
+    i = 0;
 
-		while i < 10000000u32 { 
-      i += 1; 
-      clear_led(); 
-    }		
-	}
+    while i < 10000000u32 { 
+            i += 1; 
+            clear_led(); 
+        }
+  }
 }
