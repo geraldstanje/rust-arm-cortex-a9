@@ -1,29 +1,18 @@
 #![allow(improper_ctypes)]
 #![no_std]
-#![no_main]
 #![feature(lang_items)]
 #![feature(int_uint)] // update fail_bounds_check
 #![feature(no_std)]
 #![feature(intrinsics)]
 #![feature(core)]
-
-#![crate_type="staticlib"]
+#![feature(start)]
 
 extern crate core;
 
+mod runtime;
+
 extern "rust-intrinsic" { pub fn volatile_load<T>(src: *const T) -> T; }
 extern "rust-intrinsic" { pub fn volatile_store<T>(src: *mut T, value: T); }
-
-#[lang="stack_exhausted"]
-extern fn stack_exhausted() {}
-
-#[lang="eh_personality"]
-extern fn eh_personality() {}
-
-#[lang="panic_fmt"]
-fn panic_fmt() -> ! {
-    loop {}
-}
 
 const RAM_ADDR: u32 = 0x1e000000;
 
@@ -76,34 +65,40 @@ pub static mut ti_ipc_remoteproc_ResourceTable: rproc_resource = rproc_resource 
 
 #[no_mangle]
 pub fn set_led() {
-  let led_port: *mut u32 = 0x40000030 as *mut u32;
+	let led_port: *mut u32 = 0x40000030 as *mut u32;
 
-  unsafe {
-    *led_port = 20; // set LED2 and LED4
-  }
+	unsafe {
+		*led_port = 20; // set LED2 and LED4
+	}
 }
 
 #[no_mangle]
 pub fn clear_led() {
-  let led_port: *mut u32 = 0x40000030 as *mut u32;
+	let led_port: *mut u32 = 0x40000030 as *mut u32;
 
-  unsafe {
-    *led_port = 0; // clear LED2 and LED4
-  }
+	unsafe {
+		*led_port = 0; // clear LED2 and LED4
+	}
 }
 
-#[no_mangle]
-pub extern "C" fn main() {
-  unsafe {
-    volatile_load(&ti_ipc_remoteproc_ResourceTable);
-  }
+#[start]
+fn start(_: isize, _: *const *const u8) -> isize {
+	main();
+	return 0;
+}
 
-  loop {
-    //let mut i: u32 = 0;
+fn main() {
+	unsafe {
+		volatile_load(&ti_ipc_remoteproc_ResourceTable);
+	}
 
-    //while i < 10000000u32 { i += 1; }
-    //set_led();
-    //while i < 10000000u32 { i += 1; }
-    clear_led();    
-  }
+	loop {
+		let mut i: u32 = 0;
+
+		while i < 10000000u32 { i += 1; set_led(); }
+		
+		i = 0;
+
+		while i < 10000000u32 { i += 1; clear_led(); }		
+	}
 }
