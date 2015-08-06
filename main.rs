@@ -87,7 +87,7 @@ fn start(_: isize, _: *const *const u8) -> isize {
 	return 0;
 }
 
-fn main() {
+pub fn main() {
 	unsafe {
 		volatile_load(&ti_ipc_remoteproc_ResourceTable);
 	}
@@ -95,10 +95,16 @@ fn main() {
 	loop {
 		let mut i: u32 = 0;
 
-		while i < 10000000u32 { i += 1; set_led(); }
+		while i < 10000000u32 { 
+      i += 1; 
+      set_led(); 
+    }
 		
 		i = 0;
 
-		while i < 10000000u32 { i += 1; clear_led(); }		
+		while i < 10000000u32 { 
+      i += 1; 
+      clear_led(); 
+    }		
 	}
 }

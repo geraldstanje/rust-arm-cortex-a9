@@ -1,5 +1,3 @@
-#![no_std]
-#![feature(lang_items)]
 extern crate core;
 
 #[lang="stack_exhausted"]
