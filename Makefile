@@ -65,7 +65,7 @@ all: $(PROJ_NAME).elf
 #	$(AR) rcs $@ $(OBJS)
 
 libcompiler-rt.a:
-	cp libxil.a libcompiler-rt.a
+	cp orig/bare_metal_test.cpu1/app_cpu1_bsp/ps7_cortexa9_1/lib/libxil.a libcompiler-rt.a
 
 #libcompiler-rt.a
 $(PROJ_NAME).elf: libcompiler-rt.a main.rs
