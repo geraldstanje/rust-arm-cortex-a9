@@ -6,9 +6,9 @@
 4. Integrate with Zinc [3], the bare metal stack for rust ... not started
 
 # Compiling:
-make all
+./build.sh
 
-The output will be a binary called blinky.elf.
+The output will be a binary called app_cpu1.elf.
 
 ARM Core 0 runs Ubuntu Linux and ARM Core 1 will load blinky.elf using the remoteproc kernel module. For more information see Henrys blog [4].
 
