@@ -80,6 +80,13 @@ pub fn clear_led() {
   }
 }
 
+#[no_mangle]
+pub fn toogle_led(led_port: *mut u32, led_pin: u32) {
+  unsafe {
+      *led_port ^= 1 << led_pin;
+  }
+}
+
 #[start]
 fn start(_: isize, _: *const *const u8) -> isize {
   main();
@@ -91,19 +98,16 @@ pub fn main() {
     volatile_load(&ti_ipc_remoteproc_ResourceTable);
   }
 
+  let led_port: *mut u32 = 0x40000030 as *mut u32;
+
   loop {
     let mut i: u32 = 0;
 
-    while i < 10000000u32 { 
-            i += 1; 
-            set_led(); 
-        }
-    
+    while i < 10000000u32 { i += 1; }
     i = 0;
+    while i < 10000000u32 { i += 1; }
 
-    while i < 10000000u32 { 
-            i += 1; 
-            clear_led(); 
-        }
+    toogle_led(led_port, 2);
+    toogle_led(led_port, 4);    
   }
 }
