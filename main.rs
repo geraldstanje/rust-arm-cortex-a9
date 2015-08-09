@@ -57,7 +57,7 @@ pub struct rproc_resource
 pub static mut ti_ipc_remoteproc_ResourceTable: rproc_resource = rproc_resource {
   base: resource_table { ver: 1, num: 1, reserved: [0, 0], offset: [20], // TODO: not sure if that represents the C code: { offsetof(struct rproc_resource, code_cout) }
   },
-  code_cout: fw_rsc_carveout { type_: fw_resource_type::RSC_CARVEOUT as u32, da: RAM_ADDR, pa: RAM_ADDR, len: 524288, //1<<19 
+  code_cout: fw_rsc_carveout { type_: fw_resource_type::RSC_CARVEOUT as u32, da: RAM_ADDR, pa: RAM_ADDR, len: 1<<19, 
                flags: 0, reserved: 0, name: *b"APP_CPU1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 
   },
 };
