@@ -55,35 +55,31 @@ pub struct rproc_resource
 
 #[link_section=".rtable"]
 pub static mut ti_ipc_remoteproc_ResourceTable: rproc_resource = rproc_resource {
-  base: resource_table { ver: 1, num: 1, reserved: [0, 0], offset: [20], // TODO: not sure if that represents the C code: { offsetof(struct rproc_resource, code_cout) }
+  base: resource_table { ver: 1, num: 1, reserved: [0, 0], offset: [20], rproc_resource, code_cout) }
   },
   code_cout: fw_rsc_carveout { type_: fw_resource_type::RSC_CARVEOUT as u32, da: RAM_ADDR, pa: RAM_ADDR, len: 1<<19, 
-               flags: 0, reserved: 0, name: *b"APP_CPU1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 
+  flags: 0, reserved: 0, name: *b"APP_CPU1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 
   },
 };
 
 #[no_mangle]
-pub fn set_led() {
-  let led_port: *mut u32 = 0x40000030 as *mut u32;
-
+pub fn set_led(led_port: *mut u32, led_pin: u32) {
   unsafe {
-    *led_port = 20; // set LED2 and LED4
+    *led_port |= 1 << led_pin;
   }
 }
 
 #[no_mangle]
-pub fn clear_led() {
-  let led_port: *mut u32 = 0x40000030 as *mut u32;
-
+pub fn clear_led(led_port: *mut u32, led_pin: u32) {
   unsafe {
-    *led_port = 0; // clear LED2 and LED4
+    *led_port &= !(1 << led_pin);
   }
 }
 
 #[no_mangle]
 pub fn toogle_led(led_port: *mut u32, led_pin: u32) {
   unsafe {
-      *led_port ^= 1 << led_pin;
+    *led_port ^= 1 << led_pin;
   }
 }
 

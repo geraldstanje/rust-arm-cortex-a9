@@ -10,7 +10,7 @@
 
 The output will be a binary called app_cpu1.elf.
 
-ARM Core 0 runs Ubuntu Linux and ARM Core 1 will load blinky.elf using the remoteproc kernel module. For more information see Henrys blog [4].
+ARM Core 0 runs Ubuntu Linux and ARM Core 1 will load app_cpu1.elf using the remoteproc kernel module. For more information see Henrys blog [4].
 
 # Structure:
   * main.rs - sample program (blinks a LED on the ARM Cortex A9)
